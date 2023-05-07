@@ -7,7 +7,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import "./css/Blogform.css";
 // import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles({
   textField: {
@@ -19,7 +19,7 @@ const useStyles = makeStyles({
 
 export default function AnimalBlogForm() {
   const classes = useStyles();
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const [file, setFile] = useState(null);
   const [title, setTitle] = useState("");
   const [articlebody, setarticlebody] = useState("");
@@ -41,6 +41,10 @@ export default function AnimalBlogForm() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (!file || !title || !articlebody) {
+      setError("Please fill in all the fields.");
+      return;
+    }
     setLoading(true);
 
     try {
@@ -119,7 +123,7 @@ export default function AnimalBlogForm() {
         >
           Post
         </Button>
-        {error && <p>{error}</p>}
+        {error && <p style={{ color: "red" }}>{error}</p>}
       </form>
     </div>
   );

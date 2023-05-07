@@ -35,10 +35,14 @@ export default function AgriBlogForm() {
 
   const handleArticlebodyChange = (event) => {
     setArticlebody(event.target.value);
-  }
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (!file || !title || !articlebody) {
+      setError("Please fill in all the fields.");
+      return;
+    }
     setLoading(true);
     try {
       const formData = new FormData();
@@ -67,6 +71,7 @@ export default function AgriBlogForm() {
       navigate("/agriServices");
     } catch (error) {
       setError(error.response.data.error);
+      toast.error(error.response.data.error);
     } finally {
       setLoading(false);
     }
@@ -111,7 +116,7 @@ export default function AgriBlogForm() {
         >
           Post
         </Button>
-        {error && <p>{error}</p>}
+        {error && <p style={{ color: "red" }}>{error}</p>}
       </form>
     </div>
   );
