@@ -44,6 +44,10 @@ import AnimalUserNav from "./Components/AnimalBlog/AnimalUserNav";
 import AllAnimalBlogs from "./Components/AnimalBlog/AllAnimalBlogs";
 import AnimalBlogForm from "./Components/AnimalBlog/AnimalBlogForm";
 
+//Edited by kulanaka
+import ViewRice from "./Components/Agriculture/ViewRice";
+import UpdateRice from "./Components/Agriculture/UpdateRice";
+
 export default function App() {
   return (
     <Router>
@@ -337,6 +341,9 @@ export default function App() {
             </>
           }
         />
+        {/*Edited by kuls */}
+        <Route path="/vvegi" element={<><ViewRice/> <APNavbar /> <Footer /> </> }></Route>
+        <Route path="/upvegi" element={<><UpdateRice/> <APNavbar /> <Footer /> </> }></Route>
       </Routes>
     </Router>
   );
