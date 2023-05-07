@@ -6,7 +6,7 @@ const dotenv = require("dotenv");
 const app = express();
 require("dotenv").config();
 
-const PORT = process.env.PORT || 8070;
+const PORT = process.env.PORT || 8080;
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -61,9 +61,6 @@ app.use("/goatMilkProduction", goatMilkProductionRouter);
 const goatMeatProductionRouter = require ("./Routes/GoatMeatProduction-route");
 app.use("/goatMeatProduction", goatMeatProductionRouter);
 
-app.listen(PORT,()=>{
-    console.log(`Server is up and running on port number: ${PORT} !`);
-})
 //Test Image
 const imageRouter = require("./Routes/ImageTest-route");
 app.use("/imageTest", imageRouter);
