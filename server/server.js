@@ -76,3 +76,7 @@ app.use("/imageTest", imageRouter);
 const riceRouter = require("./Routes/Agriculture-routes/RiceProducion-route");
 app.use("/riceProduction", riceRouter);
 
+//Vegitabel production routes.
+const vegitableRouter = require("./Routes/Agriculture-routes/VegitableProduction-route");
+app.use("/vegitableProduction", vegitableRouter);
+
