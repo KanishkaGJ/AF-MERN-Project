@@ -4,39 +4,25 @@ const ChickenProduction = require("../../Models/AnimalProduction/ChickenProducti
 //this controller is used to add a new chicken production.
 const addChickenProduction = async (req, res, next) => {
     const { 
-        Population,
-        District,
-        SecretariatDivision,
-        NeedPerPerson, 
-        Consuption,
-        NeedAsPerDivision,
-        NeedPerYearInKg,
-        NeedPerYearInTons,
-        Production,
-        SurplusOrDeficit,
-        ChickensPresent,
-        AvgWeightOfChicken,
-        MeatPercentageFromWeight,       
-        ChickensToIncreaseProduction,
-        Year
+        Region,
+        Division,
+        CPopulation,
+        NeedPP, 
+        ConsuptionPY,
+        SurplusDeficit,
+        AvgCWeight,
+        productionValue
     } = req.body;
 
     const newChickenProduction = new ChickenProduction({
-        Population,
-        District,
-        SecretariatDivision,
-        NeedPerPerson, 
-        Consuption,
-        NeedAsPerDivision,
-        NeedPerYearInKg,
-        NeedPerYearInTons,
-        Production,
-        SurplusOrDeficit,
-        ChickensPresent,
-        AvgWeightOfChicken,
-        MeatPercentageFromWeight,       
-        ChickensToIncreaseProduction,
-        Year,
+        Region,
+        Division,
+        CPopulation,
+        NeedPP, 
+        ConsuptionPY,
+        SurplusDeficit,
+        AvgCWeight,
+        productionValue
     });
 
     newChickenProduction.save().then(() => {
@@ -48,7 +34,7 @@ const addChickenProduction = async (req, res, next) => {
 };
 
 //This controller is used to view all the chicken pruduction.
-const getAllChickenProduction = async (re, res, next) => {
+const getAllChickenProduction = async (req, res, next) => {
     ChickenProduction.find().then((chickenproduction) => {
         res.json(chickenproduction);
     })
@@ -75,39 +61,25 @@ const updateChickenProduction = async (req, res, next) => {
     let chickenProductionID = req.params.id;
 
     const { 
-        Population,
-        District,
-        SecretariatDivision,
-        NeedPerPerson, 
-        Consuption,
-        NeedAsPerDivision,
-        NeedPerYearInKg,
-        NeedPerYearInTons,
-        Production,
-        SurplusOrDeficit,
-        ChickensPresent,
-        AvgWeightOfChicken,
-        MeatPercentageFromWeight,       
-        ChickensToIncreaseProduction,
-        Year
+        Region,
+        Division,
+        CPopulation,
+        NeedPP, 
+        ConsuptionPY,
+        SurplusDeficit,
+        AvgCWeight,
+        productionValue
     } = req.body;
 
-    const updateBeefProduction = {
-        Population,
-        District,
-        SecretariatDivision,
-        NeedPerPerson, 
-        Consuption,
-        NeedAsPerDivision,
-        NeedPerYearInKg,
-        NeedPerYearInTons,
-        Production,
-        SurplusOrDeficit,
-        ChickensPresent,
-        AvgWeightOfChicken,
-        MeatPercentageFromWeight,       
-        ChickensToIncreaseProduction,
-        Year,
+    const updateChickenProduction = {
+        Region,
+        Division,
+        CPopulation,
+        NeedPP, 
+        ConsuptionPY,
+        SurplusDeficit,
+        AvgCWeight,
+        productionValue
     };
 
     const updateProduction = await ChickenProduction.findOneAndUpdate(chickenProductionID, updateChickenProduction).then(() => {
