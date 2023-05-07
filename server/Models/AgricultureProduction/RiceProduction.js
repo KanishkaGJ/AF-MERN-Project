@@ -2,29 +2,19 @@ const mongoose = require('mongoose');
 
 const schema = mongoose.Schema;
 
-const agricultureProductionSchema = new schema({
+const riceProductionSchema = new schema({
     
     District: {
         type: String,
         required: true
     },
 
-    SecretariatDivision: {
+    Division: {
         type: String,
         required: true
     },
 
-    OfficerID: {
-        type: String,
-        required: true
-    },
-
-    ProductionName: {
-        type: String,
-        required: true
-    },
-
-    ProductionType: {
+    RiceType: {
         type: String,
         required: true
     },
@@ -34,17 +24,17 @@ const agricultureProductionSchema = new schema({
         required: true
     },
 
-    TargetedLandArea: {
-        type: String,
-        required: true
-    },
-
-    CultivatedLandArea: {
+    CLArea: { // CLArea = cultivated land area
         type: String,
         required: true
     },
 
     Harvest: {
+        type: String,
+        required: true
+    },
+
+    SurplusDeficit: {
         type: String,
         required: true
     },
@@ -55,5 +45,5 @@ const agricultureProductionSchema = new schema({
     },
 })
 
-const agricultureProduction = mongoose.model("AgricultureProduction", agricultureProductionSchema);
-module.exports = agricultureProduction;
+const riceProduction = mongoose.model("RiceProduction", riceProductionSchema);
+module.exports = riceProduction;

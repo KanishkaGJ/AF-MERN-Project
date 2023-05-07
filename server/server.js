@@ -72,7 +72,7 @@ app.use("/goatMeatProduction", goatMeatProductionRouter);
 const imageRouter = require("./Routes/ImageTest-route");
 app.use("/imageTest", imageRouter);
 
-//Agriculture production routes.
-const agricultureRouter = require("./Routes/AgricultureProducion-route");
-app.use("/agricultureProduction", agricultureRouter);
+//Rice production routes.
+const riceRouter = require("./Routes/Agriculture-routes/RiceProducion-route");
+app.use("/riceProduction", riceRouter);
 
