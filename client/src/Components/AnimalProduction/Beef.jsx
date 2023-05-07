@@ -175,34 +175,16 @@ export default function Beef() {
           }}
         />
 
-        <TextField
-          className={classes.input}
-          label="Cattle Population"
-          variant="outlined"
-          name="Cattle Population" // name from the animal object
-          onChange={(e) => {
-            setSurplusDeficit(e.target.value);
-          }}
-        />
-        <TextField
-          className={classes.input}
-          label="Consumption per person"
-          variant="outlined"
-          name="age"
-          onChange={(e) => {
-            setAvgCWeight(e.target.value);
-          }}
-        />
-        <TextField
-          className={classes.input}
-          label="Consumption per year"
-          variant="outlined"
-          color="primary"
-          name="habitat"
-          onChange={(e) => {
-            setConsuptionPY(e.target.value);
-          }}
-        />
+      <TextField
+        className={classes.input}
+        label="Surplus / Deficit"
+        variant="outlined"
+        name="Cattle Population" // name from the animal object
+        onChange={(e) => {
+          setSurplusDeficit(e.target.value);
+        }}
+      />
+  
 
         <TextField
           className={classes.input}
@@ -214,15 +196,14 @@ export default function Beef() {
             setAvgCWeight(e.target.value);
           }}
         />
-
         <TextField
           className={classes.input}
-          label="Avg weight of cows"
+          label="Amount needed to increase production"
           variant="outlined"
           color="primary"
           name="habitat"
           onChange={(e) => {
-            setAvgCWeight(e.target.value);
+            setPproductionValue(e.target.value);
           }}
         />
 
