@@ -1,39 +1,64 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { AppBar, Toolbar, Button, Typography } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+  title: {
+    flexGrow: 1,
+  },
+  button: {
+    marginRight: theme.spacing(2),
+  },
+}));
 
 export default function AnimalGrassNavbar() {
+  const classes = useStyles();
   const navigate = useNavigate();
 
   const handleAddNew = () => {
     navigate("/animal");
   };
+  const handleMenuClick = () => {
+    navigate("/selectionPage");
+  };
+  const handleLogoutClick = () => {
+    navigate("/landingStaff");
+  };
 
   return (
-    <nav
-      className="navbar navbar-expand-lg"
-      style={{ backgroundColor: "#1a8b1f" }}
-    >
-      <div className="container-fluid navCss">
-        NAVBAR - Grass - Animal
+    <AppBar position="static" style={{ backgroundColor: "#1a8b1f" }}>
+      <Toolbar>
+        <Typography variant="h6" className={classes.title}>
+          NAVBAR - Grass - Animal
+        </Typography>
         <div className="ml-auto">
-          <button
-            className="btn btn-outline-light me-2"
-            type="button"
+          <Button
+            variant="outlined"
+            color="inherit"
+            className={classes.button}
             onClick={handleAddNew}
           >
             Add New
-          </button>
+          </Button>
+          <Button
+            variant="outlined"
+            color="inherit"
+            onClick={handleMenuClick}
+            className={classes.button}
+          >
+            Menu
+          </Button>
+          <Button
+            variant="outlined"
+            color="inherit"
+            className={classes.button}
+            onClick={handleLogoutClick}
+          >
+            Log out
+          </Button>
         </div>
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarText"
-          aria-controls="navbarText"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        ></button>
-      </div>
-    </nav>
+      </Toolbar>
+    </AppBar>
   );
 }

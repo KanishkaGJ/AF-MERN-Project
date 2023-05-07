@@ -1,24 +1,18 @@
 const mongoose = require("mongoose");
-
 const Schema = mongoose.Schema;
-
 const agriBlogSchema = new Schema({
-  Title: {
+  title: {
     type: String,
     required: true,
   },
-  Description: {
+  articlebody: {
     type: String,
     required: true,
   },
-  Thumbnail: {
+  image: {
     type: String,
     required: true,
   },
-//   Image: {
-//     type: String,
-//   },
 });
-
 const AgriBlog = mongoose.model("AgriBlog", agriBlogSchema);
 module.exports = AgriBlog;

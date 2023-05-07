@@ -66,4 +66,47 @@ router.get("/article/:id", async (req, res) => {
   }
 });
 
+//update the article
+router.route("/update/:id").put(async (req, res) => {
+  let articleId = req.params.id;
+
+  const { title } = req.body;
+  const { articlebody } = req.body;
+  const { image } = req.body;
+
+  //save file pat to MongoDB
+  const updateArticle = {
+    title,
+    articlebody,
+    image,
+  };
+
+  const update = await AnimalArticle.findByIdAndUpdate(articleId, updateArticle)
+    .then(() => {
+      res.status(200).send({ status: "Article Updated" });
+    })
+    .catch((err) => {
+      console.log(err);
+      res
+        .status(500)
+        .send({ status: "Error in updating data", error: err.message });
+    });
+});
+
+//delete an article
+router.route("/delete/:id").delete(async (req, res) => {
+  let articleId = req.params.id;
+
+  await AnimalArticle.findByIdAndDelete(articleId)
+    .then(() => {
+      res.status(200).send({ status: "Article deleted" });
+    })
+    .catch((err) => {
+      console.log(err);
+      res
+        .status(500)
+        .send({ status: "Error with deleting item", error: err.message });
+    });
+});
+
 module.exports = router;

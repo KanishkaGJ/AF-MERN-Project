@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import axios from 'axios';
 import { ThemeProvider, makeStyles } from '@material-ui/core/styles';
 import { createTheme } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -9,7 +10,7 @@ import './AnimalProduction.css';
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#1a8b1f', // Set your desired primary color here
+      main: "#1a8b1f", // Set your desired primary color here
     },
   },
 });
@@ -24,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
   input: {
     margin: theme.spacing(1),
-    width: '50%',
+    width: "50%",
   },
   button: {
     margin: theme.spacing(3),
@@ -32,42 +33,58 @@ const useStyles = makeStyles((theme) => ({
   },
 
   root: {
-    display: 'flex',
+    display: "flex",
     margin: theme.spacing(1.5),
     gap: theme.spacing(3),
-    alignItems: 'center',
+    alignItems: "center",
   },
-
 }));
 
 export default function Beef() {
   const classes = useStyles();
-  const [animal, setAnimal] = useState({
-    name: '',
-    species: '',
-    age: '',
-    habitat: '',
-  });
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setAnimal((prevAnimal) => ({
-      ...prevAnimal,
-      [name]: value,
-    }));
-  };
+  // const [beefID, beefPID] = useState("");
+  const [Region, setRegion] = useState("");
+  const [Division, setDivision] = useState("");
+  const [CPopulation, setCPopulation] = useState("");
+  const [NeedPP, setNeedPP] = useState("");
+  const [ConsuptionPY, setConsuptionPY] = useState("");
+  const [SurplusDeficit, setSurplusDeficit] = useState("");
+  const [AvgCWeight, setAvgCWeight] = useState("");
+  const [productionValue, setPproductionValue] = useState("");
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log(animal); // replace with your API call or data handling logic
-  };
+  function sendData(e){
 
-  const Region = [
+    e.preventDefault();
+    const newBeef = {
+      Region,
+      Division,
+      CPopulation,
+      NeedPP,
+      ConsuptionPY,
+      SurplusDeficit,
+      AvgCWeight,
+      productionValue
+    }
+    console.log(newBeef);
+    //send http request
+    axios.post("http://localhost:8070/beefProduction/addBeefProduction",newBeef).then(()=>{
+        alert("New Beef added");
+        // history("/login");
+    }).catch((err)=>{
+        alert(err)
+    })
+
+  }
+
+  
+
+  const Regi = [ // Regi = Region
     { label: 'Rathnapura', region: "Rathnapura" },
     { label: 'Kegalle', region: "Kegalle" },
   ];
 
-  const Division = [
+  const Divi = [ // Divi = Division
     { label: 'Rabukkana', division: "Rabukkana" }, // Kegalle divisions list starts
     { label: 'Mavanalla', division: "Mavanalla" },
     { label: 'Aranayake', division: "Aranayake" },
@@ -106,7 +123,7 @@ export default function Beef() {
   return (
     <ThemeProvider theme={theme}>
       
-    <form className={classes.form} onSubmit={handleSubmit}>
+    <form className={classes.form} onSubmit={sendData}>
     
     <h1 className='h1'>Cattle Details</h1>
     <div className={classes.root}>
@@ -114,34 +131,70 @@ export default function Beef() {
       disablePortal
       id="combo-box-demo"
       sx={{ width: 325 }}
-      options={Region}
+      options={Regi}
+      onChange={(e) => {
+        setRegion(e.target.value);
+      }}
       renderInput={(params) => <TextField {...params} label="Region" />}
     />
     <Autocomplete
       disablePortal
       id="combo-box-demo"
       sx={{ width: 325 }}
-      options={Division}
+      options={Divi}
+      onChange={(e) => {
+        setDivision(e.target.value);
+      }}
       renderInput={(params) => <TextField {...params} label="Division" />}
     />
     </div>
 
+        <TextField
+          className={classes.input}
+          label="Population"
+          variant="outlined"
+          name="species" // name from the animal object
+          onChange={(e) => {
+            setCPopulation(e.target.value);
+          }}
+        />
+        <TextField
+          className={classes.input}
+          label="Consuption per person"
+          variant="outlined"
+          name="age"
+          onChange={(e) => {
+            setNeedPP(e.target.value);
+          }}
+        />
+        <TextField
+          className={classes.input}
+          label="Consumption per year"
+          variant="outlined"
+          color="primary"
+          name="habitat"
+          onChange={(e) => {
+            setConsuptionPY(e.target.value);
+          }}
+        />
 
       <TextField
         className={classes.input}
-        label="Population"
+        label="Cattle Population"
         variant="outlined"
-        name="species" // name from the animal object
-        value={animal.species}
-        onChange={handleChange}
+        name="Cattle Population" // name from the animal object
+        onChange={(e) => {
+          setSurplusDeficit(e.target.value);
+        }}
       />
       <TextField
         className={classes.input}
         label="Consumption per person"
         variant="outlined"
         name="age"
-        value={animal.age}
-        onChange={handleChange}
+        onChange={(e) => {
+          setAvgCWeight(e.target.value);
+        }}
       />
       <TextField
         className={classes.input}
@@ -149,8 +202,9 @@ export default function Beef() {
         variant="outlined"
         color='primary'
         name="habitat"
-        value={animal.habitat}
-        onChange={handleChange}
+        onChange={(e) => {
+          setConsuptionPY(e.target.value);
+        }}
       />
 
       <TextField
@@ -159,8 +213,9 @@ export default function Beef() {
         variant="outlined"
         color='primary'
         name="habitat"
-        value={animal.habitat}
-        onChange={handleChange}
+        onChange={(e) => {
+          setSurplusDeficit(e.target.value);
+        }}
       />
 
       <TextField
@@ -169,8 +224,9 @@ export default function Beef() {
         variant="outlined"
         color='primary'
         name="habitat"
-        value={animal.habitat}
-        onChange={handleChange}
+        onChange={(e) => {
+          setAvgCWeight(e.target.value);
+        }}
       />
 
       <TextField
@@ -179,8 +235,9 @@ export default function Beef() {
         variant="outlined"
         color='primary'
         name="habitat"
-        value={animal.habitat}
-        onChange={handleChange}
+        onChange={(e) => {
+          setPproductionValue(e.target.value);
+        }}
       />
    
       <Button
@@ -194,5 +251,4 @@ export default function Beef() {
     </ThemeProvider>
   );
 }
-
 

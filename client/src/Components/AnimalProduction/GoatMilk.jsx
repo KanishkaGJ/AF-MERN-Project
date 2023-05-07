@@ -108,7 +108,7 @@ export default function GoatMilk() {
       
     <form className={classes.form} onSubmit={handleSubmit}>
     
-    <h1 className='h1'>Chicken Production Details</h1>
+    <h1 className='h1'>Goat Milk Production Details</h1>
     <div className={classes.root}>
     <Autocomplete
       disablePortal
@@ -165,7 +165,7 @@ export default function GoatMilk() {
 
       <TextField
         className={classes.input}
-        label="Chicken production per year ( per poultry )"
+        label="Goat milk production ( Per year )"
         variant="outlined"
         color='primary'
         name="habitat"
