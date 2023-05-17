@@ -4,39 +4,25 @@ const GoatMeatProduction = require("../../Models/AnimalProduction/GoatMeatProduc
 //this controller is used to add a new goat meat production.
 const addGoatMeatProduction = async (req, res, next) => {
     const { 
-        Population,
-        District,
-        SecretariatDivision, 
-        NeedPerPerson, 
-        Consuption,
-        NeedPerDivision,
-        NeedPerYearInKg,
-        NeedPerYearInTons,
-        Production,
-        SurplusOrDeficit,
-        GoatsPresent,
-        AvgWeightOfGoat,
-        MeatPercentageFromWeight,
-        GoatsToIncreaseProduction,
-        Year
+        Region,
+        Division,
+        GMPopulation, 
+        NeedPP, 
+        ConsuptionPY,
+        SurplusDeficit,
+        AvgGWeight,
+        productionValue
     } = req.body;
 
     const newGoatMeatProduction = new GoatMeatProduction({
-        Population,
-        District,
-        SecretariatDivision, 
-        NeedPerPerson, 
-        Consuption,
-        NeedPerDivision,
-        NeedPerYearInKg,
-        NeedPerYearInTons,
-        Production,
-        SurplusOrDeficit,
-        GoatsPresent,
-        AvgWeightOfGoat,
-        MeatPercentageFromWeight,
-        GoatsToIncreaseProduction,
-        Year,
+        Region,
+        Division,
+        GMPopulation, 
+        NeedPP, 
+        ConsuptionPY,
+        SurplusDeficit,
+        AvgGWeight,
+        productionValue,
     });
 
     newGoatMeatProduction.save().then(() => {
@@ -75,42 +61,28 @@ const updateGoatMeatProduction = async (req, res, next) => {
     let goatMeatProductionID = req.params.id;
 
     const { 
-        Population,
-        District,
-        SecretariatDivision, 
-        NeedPerPerson, 
-        Consuption,
-        NeedPerDivision,
-        NeedPerYearInKg,
-        NeedPerYearInTons,
-        Production,
-        SurplusOrDeficit,
-        GoatsPresent,
-        AvgWeightOfGoat,
-        MeatPercentageFromWeight,
-        GoatsToIncreaseProduction,
-        Year
+        Region,
+        Division,
+        GMPopulation, 
+        NeedPP, 
+        ConsuptionPY,
+        SurplusDeficit,
+        AvgGWeight,
+        productionValue
     } = req.body;
 
     const updateGoatMeatProduction = {
-        Population,
-        District,
-        SecretariatDivision, 
-        NeedPerPerson, 
-        Consuption,
-        NeedPerDivision,
-        NeedPerYearInKg,
-        NeedPerYearInTons,
-        Production,
-        SurplusOrDeficit,
-        GoatsPresent,
-        AvgWeightOfGoat,
-        MeatPercentageFromWeight,
-        GoatsToIncreaseProduction,
-        Year,
+        Region,
+        Division,
+        GMPopulation, 
+        NeedPP, 
+        ConsuptionPY,
+        SurplusDeficit,
+        AvgGWeight,
+        productionValue,
     };
 
-    const updateProduction = await GoatMeatProduction.findOneAndUpdate(goatMeatProductionID, updateGoatMeatProduction).then(() => {
+    const updateProduction = await GoatMeatProduction.findByIdAndUpdate(goatMeatProductionID, updateGoatMeatProduction).then(() => {
         res.status(200).send({ status: "Goat Meat production is updated successfully!!"})
     })
     .catch((error) => {
@@ -123,7 +95,7 @@ const updateGoatMeatProduction = async (req, res, next) => {
 const deleteGoatMeatProduction  = async (req, res, next) => {
     let goatMeatProductionID = req.params.id;
 
-    await GoatMeatProduction.findOneAndDelete(goatMeatProductionID).then(() => {
+    await GoatMeatProduction.findByIdAndDelete(goatMeatProductionID).then(() => {
         res.status(200).send({ status: "Goat Meat production have been deleted successfully!!"});
     })
     .catch((error) => {

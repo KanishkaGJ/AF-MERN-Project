@@ -82,7 +82,7 @@ const updateBeefProduction = async (req, res, next) => {
         productionValue
     };
 
-    const updateProduction = await BeefProduction.findOneAndUpdate(beefProductionID, updateBeefProduction).then(() => {
+    const updateProduction = await BeefProduction.findByIdAndUpdate(beefProductionID, updateBeefProduction).then(() => {
         res.status(200).send({ status: "Beef production is updated successfully!!"})
     })
     .catch((error) => {
@@ -95,7 +95,7 @@ const updateBeefProduction = async (req, res, next) => {
 const deleteBeefProduction  = async (req, res, next) => {
     let beefProductionID = req.params.id;
 
-    await BeefProduction.findOneAndDelete(beefProductionID).then(() => {
+    await BeefProduction.findByIdAndDelete(beefProductionID).then(() => {
         res.status(200).send({ status: "Beef production have been deleted successfully!!"});
     })
     .catch((error) => {

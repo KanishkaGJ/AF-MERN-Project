@@ -4,37 +4,25 @@ const EggProduction = require("../../Models/AnimalProduction/EggProduction");
 //this controller is used to add a new Egg production.
 const addEggProduction = async (req, res, next) => {
     const { 
-        Population,
-        District,
-        SecretariatDivision,
-        NeedPerPerson,
-        NeedAsPerDivision, 
-        Consuption,
-        NeedPerYear,
-        Production,
-        SurplusOrDeficit,
-        DomesticChickens,
-        HensPresent,
-        AnnualProductonOfAHen,
-        HensToIncreaseProduction,
-        Year
+        Region,
+        Division,
+        EPopulation,
+        NeedPP,
+        ConsuptionPY, 
+        SurplusDeficit,
+        EggProPY,
+        productionValue
     } = req.body;
 
     const newEggProduction = new EggProduction({
-        Population,
-        District,
-        SecretariatDivision,
-        NeedPerPerson,
-        NeedAsPerDivision, 
-        Consuption,
-        NeedPerYear,
-        Production,
-        SurplusOrDeficit,
-        DomesticChickens,
-        HensPresent,
-        AnnualProductonOfAHen,
-        HensToIncreaseProduction,
-        Year,
+        Region,
+        Division,
+        EPopulation,
+        NeedPP,
+        ConsuptionPY, 
+        SurplusDeficit,
+        EggProPY,
+        productionValue,
     });
 
     newEggProduction.save().then(() => {
@@ -73,40 +61,28 @@ const updateEggProduction = async (req, res, next) => {
     let eggProductionID = req.params.id;
 
     const { 
-        Population,
-        District,
-        SecretariatDivision,
-        NeedPerPerson,
-        NeedAsPerDivision, 
-        Consuption,
-        NeedPerYear,
-        Production,
-        SurplusOrDeficit,
-        DomesticChickens,
-        HensPresent,
-        AnnualProductonOfAHen,
-        HensToIncreaseProduction,
-        Year
+        Region,
+        Division,
+        EPopulation,
+        NeedPP,
+        ConsuptionPY, 
+        SurplusDeficit,
+        EggProPY,
+        productionValue
     } = req.body;
 
-    const updateBeefProduction = {
-        Population,
-        District,
-        SecretariatDivision,
-        NeedPerPerson,
-        NeedAsPerDivision, 
-        Consuption,
-        NeedPerYear,
-        Production,
-        SurplusOrDeficit,
-        DomesticChickens,
-        HensPresent,
-        AnnualProductonOfAHen,
-        HensToIncreaseProduction,
-        Year,
+    const updateEggProduction = {
+        Region,
+        Division,
+        EPopulation,
+        NeedPP,
+        ConsuptionPY, 
+        SurplusDeficit,
+        EggProPY,
+        productionValue,
     };
 
-    const updateProduction = await EggProduction.findOneAndUpdate(eggProductionID, updateEggProduction).then(() => {
+    const updateProduction = await EggProduction.findByIdAndUpdate(eggProductionID, updateEggProduction).then(() => {
         res.status(200).send({ status: "Egg production is updated successfully!!"})
     })
     .catch((error) => {
@@ -119,7 +95,7 @@ const updateEggProduction = async (req, res, next) => {
 const deleteEggProduction  = async (req, res, next) => {
     let eggProductionID = req.params.id;
 
-    await EggProduction.findOneAndDelete(eggProductionID).then(() => {
+    await EggProduction.findByIdAndDelete(eggProductionID).then(() => {
         res.status(200).send({ status: "Egg production have been deleted successfully!!"});
     })
     .catch((error) => {
