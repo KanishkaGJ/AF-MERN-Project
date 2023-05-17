@@ -82,7 +82,7 @@ const updateRiceProduction = async (req, res, next) => {
         Year,
     };
 
-    const updateProduction = await RiceProduction.findOneAndUpdate(riceProductionID, updateRiceProduction).then(() => {
+    const updateProduction = await RiceProduction.findByIdAndUpdate(riceProductionID, updateRiceProduction).then(() => {
         res.status(200).send({ status: "Rice production is updated successfully!!"})
     })
     .catch((error) => {
@@ -95,7 +95,7 @@ const updateRiceProduction = async (req, res, next) => {
 const deleteRiceProduction  = async (req, res, next) => {
     let riceProductionID = req.params.id;
 
-    await RiceProduction.findOneAndDelete(riceProductionID).then(() => {
+    await RiceProduction.findByIdAndDelete(riceProductionID).then(() => {
         res.status(200).send({ status: "Rice production have been deleted successfully!!"});
     })
     .catch((error) => {
