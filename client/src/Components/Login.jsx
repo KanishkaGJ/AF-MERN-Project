@@ -10,6 +10,9 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import green from '@mui/material/colors/green';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useState } from 'react';
+import { useNavigate } from 'react-router';
+import axios from 'axios';
 
 function Copyright(props) {
   return (
@@ -33,14 +36,47 @@ const theme = createTheme({
 });
 
 export default function SignIn() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
+//   const handleSubmit = (event) => {
+//     event.preventDefault();
+//     const data = new FormData(event.currentTarget);
+//     console.log({
+//       email: data.get('email'),
+//       password: data.get('password'),
+//     });
+//   };
+
+  const navigate = useNavigate();
+  const [username,setUsername]=useState('')
+  const [password,setPassword]=useState('')
+
+  async function submit(e){
+      e.preventDefault();
+
+      try{
+
+          await axios.post("http://localhost:8070/login/loginCheck",{
+              username,password
+          })
+          .then(res=>{
+              if(res.data=="exist"){
+                  navigate("/vbeef")
+              }
+              else if(res.data=="notexist"){
+                  alert("User have not sign up")
+              }
+          })
+          .catch(e=>{
+              alert("wrong details")
+              console.log(e);
+          })
+
+      }
+      catch(e){
+          console.log(e);
+
+      }
+
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -60,7 +96,7 @@ export default function SignIn() {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <Box component="form" onSubmit={submit} noValidate sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required
@@ -68,8 +104,9 @@ export default function SignIn() {
               id="username"
               label="Username"
               name="username"
-              autoComplete="email"
+              autoComplete="username"
               autoFocus
+              onChange={(e)=>setUsername(e.target.value)}
             />
             <TextField
               margin="normal"
@@ -80,6 +117,7 @@ export default function SignIn() {
               type="password"
               id="password"
               autoComplete="current-password"
+              onChange={(e)=>setPassword(e.target.value)}
             />
            
             <Button

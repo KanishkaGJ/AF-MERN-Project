@@ -6,6 +6,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Autocomplete from "@mui/material/Autocomplete";
 import "./AnimalProduction.css";
+import { useNavigate } from "react-router-dom";
 
 const theme = createTheme({
   palette: {
@@ -42,6 +43,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Beef() {
   const classes = useStyles();
+  const navigate = useNavigate();
 
   // const [beefID, beefPID] = useState("");
   const [Region, setRegion] = useState("");
@@ -70,8 +72,9 @@ export default function Beef() {
     axios
       .post("http://localhost:8070/beefProduction/addBeefProduction", newBeef)
       .then(() => {
-        alert("New Beef added");
-        // history("/login");
+        alert("New Beef details added");
+       
+        navigate("/vbeef");
       })
       .catch((err) => {
         alert(err);
@@ -80,43 +83,43 @@ export default function Beef() {
 
   const Regi = [
     // Regi = Region
-    { label: "Rathnapura", region: "Rathnapura" },
-    { label: "Kegalle", region: "Kegalle" },
+    { label: "Rathnapura", option: "Rathnapura" },
+    { label: "Kegalle", option: "Kegalle" },
   ];
 
   const Divi = [
     // Divi = Division
-    { label: "Rabukkana", division: "Rabukkana" }, // Kegalle divisions list starts
-    { label: "Mavanalla", division: "Mavanalla" },
-    { label: "Aranayake", division: "Aranayake" },
-    { label: "Kegalle", division: "Kegalle" },
-    { label: "Galigamuwa", division: "Galigamuwa" },
-    { label: "Varakapola", division: "Varakapola" },
-    { label: "Ruwanwalla", division: "Ruwanwalla" },
-    { label: "Bulathkohupitiya", division: "Bulathkohupitiya" },
-    { label: "Yatiyanthota", division: "Yatiyanthota" },
-    { label: "Dehiowita", division: "Dehiowita" },
-    { label: "Daraniyagala", division: "Daraniyagala" },
-    { label: "Undugoda", division: "Undugoda" }, // Kegalle divisions list ends
+    { label: "Rabukkana", option: "Rabukkana" }, // Kegalle divisions list starts
+    { label: "Mavanalla", option: "Mavanalla" },
+    { label: "Aranayake", option: "Aranayake" },
+    { label: "Kegalle", option: "Kegalle" },
+    { label: "Galigamuwa", option: "Galigamuwa" },
+    { label: "Varakapola", option: "Varakapola" },
+    { label: "Ruwanwalla", option: "Ruwanwalla" },
+    { label: "Bulathkohupitiya", option: "Bulathkohupitiya" },
+    { label: "Yatiyanthota", option: "Yatiyanthota" },
+    { label: "Dehiowita", option: "Dehiowita" },
+    { label: "Daraniyagala", option: "Daraniyagala" },
+    { label: "Undugoda", option: "Undugoda" }, // Kegalle divisions list ends
 
-    { label: "Ahaliyagoda", division: "Ahaliyagoda" }, // Rathnapura divisions list starts
-    { label: "Kuruwita", division: "Kuruwita" },
-    { label: "Kiriella", division: "Kiriella" },
-    { label: "Rathnapura", division: "Rathnapura" },
-    { label: "Ibulpee", division: "Ibulpee" },
-    { label: "Balangoda", division: "Balangoda" },
-    { label: "Kalthota", division: "Kalthota" },
-    { label: "Oopanayeka", division: "Oopanayeka" },
-    { label: "Palmadulla", division: "Palmadulla" },
-    { label: "Elapaana", division: "Elapaana" },
-    { label: "Ayagama", division: "Ayagama" },
-    { label: "Kalawaana", division: "Kalawaana" },
-    { label: "Niwithigala", division: "Niwithigala" },
-    { label: "Kahawatte", division: "Kahawatte" },
-    { label: "Godakawela", division: "Godakawela" },
-    { label: "Weligepola", division: "Weligepola" },
-    { label: "Abilipitiya", division: "Abilipitiya" },
-    { label: "Kollonna", division: "Kollonna" }, // Rathnapura divisions list ends
+    { label: "Ahaliyagoda", option: "Ahaliyagoda" }, // Rathnapura divisions list starts
+    { label: "Kuruwita", option: "Kuruwita" },
+    { label: "Kiriella", option: "Kiriella" },
+    { label: "Rathnapura", option: "Rathnapura" },
+    { label: "Ibulpee", option: "Ibulpee" },
+    { label: "Balangoda", option: "Balangoda" },
+    { label: "Kalthota", option: "Kalthota" },
+    { label: "Oopanayeka", option: "Oopanayeka" },
+    { label: "Palmadulla", option: "Palmadulla" },
+    { label: "Elapaana", option: "Elapaana" },
+    { label: "Ayagama", option: "Ayagama" },
+    { label: "Kalawaana", option: "Kalawaana" },
+    { label: "Niwithigala", option: "Niwithigala" },
+    { label: "Kahawatte", option: "Kahawatte" },
+    { label: "Godakawela", option: "Godakawela" },
+    { label: "Weligepola", option: "Weligepola" },
+    { label: "Abilipitiya", option: "Abilipitiya" },
+    { label: "Kollonna", option: "Kollonna" }, // Rathnapura divisions list ends
   ];
 
   return (
@@ -129,20 +132,18 @@ export default function Beef() {
             id="combo-box-demo"
             sx={{ width: 325 }}
             options={Regi}
-            onChange={(e) => {
-              setRegion(e.target.value);
-            }}
-            renderInput={(params) => <TextField {...params} label="Region" />}
+            textContent={Region}
+            onChange={(e) => {setRegion(e.target.textContent);}}
+            renderInput={(params) => <TextField {...params} label="Select Region" required = {true}/>}  
           />
           <Autocomplete
             disablePortal
             id="combo-box-demo"
             sx={{ width: 325 }}
             options={Divi}
-            onChange={(e) => {
-              setDivision(e.target.value);
-            }}
-            renderInput={(params) => <TextField {...params} label="Division" />}
+            textContent={Division}
+            onChange={(e) => {setDivision(e.target.textContent);}}
+            renderInput={(params) => <TextField {...params} label="Select Division" required = {true}/>}
           />
         </div>
 
@@ -154,6 +155,7 @@ export default function Beef() {
           onChange={(e) => {
             setCPopulation(e.target.value);
           }}
+          required = {true}
         />
         <TextField
           className={classes.input}
@@ -163,6 +165,7 @@ export default function Beef() {
           onChange={(e) => {
             setNeedPP(e.target.value);
           }}
+          required = {true}
         />
         <TextField
           className={classes.input}
@@ -173,6 +176,7 @@ export default function Beef() {
           onChange={(e) => {
             setConsuptionPY(e.target.value);
           }}
+          required = {true}
         />
 
       <TextField
@@ -183,6 +187,7 @@ export default function Beef() {
         onChange={(e) => {
           setSurplusDeficit(e.target.value);
         }}
+        required = {true}
       />
   
 
@@ -195,6 +200,7 @@ export default function Beef() {
           onChange={(e) => {
             setAvgCWeight(e.target.value);
           }}
+          required = {true}
         />
         <TextField
           className={classes.input}
@@ -205,6 +211,7 @@ export default function Beef() {
           onChange={(e) => {
             setPproductionValue(e.target.value);
           }}
+          required = {true}
         />
 
         <Button
