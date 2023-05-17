@@ -48,7 +48,7 @@ export default function Beef() {
   // const [ID , setID] = useState(null);
   const [District, setDistrict] = useState('');
   const [Division, setDivision] = useState('');
-  const [VegiType, setVegiT] = useState('');
+  const [RiceType, setRiceT] = useState('');
   const [Season, setSeason] = useState('');
   const [CLArea, setCLArea] = useState('');
   const [Harvest, setHarvest] = useState('');
@@ -57,24 +57,24 @@ export default function Beef() {
 
   function sendData(e) {
     e.preventDefault();
-    const newVegi = {
+    const newRice = {
       District,
       Division,
-      VegiType,
+      RiceType,
       Season,
       CLArea,
       Harvest,
       SurplusDeficit,
       Year,
     };
-    console.log(newVegi);
+    console.log(newRice);
     //send http request
     axios
-      .post("http://localhost:8070/vegitableProduction/addVegitableProduction", newVegi)
+      .post("http://localhost:8070/riceProduction/addRiceProduction", newRice)
       .then(() => {
-        alert("New Vegitable details added");
+        alert("New Rice details added");
        
-        navigate("/vvegi");
+        navigate("/vrice");
       })
       .catch((err) => {
         alert(err);
@@ -125,7 +125,7 @@ export default function Beef() {
   return (
     <ThemeProvider theme={theme}>
       <form className={classes.form} onSubmit={sendData}>
-        <h1 className="h1">Vegitable Details</h1>
+        <h1 className="h1">Rice Details</h1>
         <div className={classes.root}>
           <Autocomplete
             disablePortal
@@ -149,11 +149,11 @@ export default function Beef() {
 
         <TextField
           className={classes.input}
-          label="Vegitable Type"
+          label="Rice Type"
           variant="outlined"
           name="species" // name from the animal object
           onChange={(e) => {
-            setVegiT(e.target.value);
+            setRiceT(e.target.value);
           }}
           required = {true}
         />
@@ -220,7 +220,7 @@ export default function Beef() {
           color="primary"
           type="submit"
         >
-          Add Vegitable
+          Add Rice
         </Button>
       </form>
     </ThemeProvider>
