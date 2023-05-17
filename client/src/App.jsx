@@ -17,7 +17,7 @@ import Pork from "./Components/AnimalProduction/Pork";
 import Chicken from "./Components/AnimalProduction/Chicken";
 import GoatMilk from "./Components/AnimalProduction/GoatMilk";
 import Goat from "./Components/AnimalProduction/Goat";
-import Agri from "./Components/Agriculture/Agri";
+import Agri from "./Components/AgricultureProduction/Agri";
 import APNavbar from "./Components/AnimalProduction/APNavbar";
 import Footer from "./Components/Footer";
 
@@ -46,8 +46,14 @@ import AllAnimalBlogs from "./Components/AnimalBlog/AllAnimalBlogs";
 import AnimalBlogForm from "./Components/AnimalBlog/AnimalBlogForm";
 
 //Edited by kulanaka
-import ViewRice from "./Components/Agriculture/ViewRice";
-import UpdateRice from "./Components/Agriculture/UpdateRice";
+import ViewRice from "./Components/AgricultureProduction/ViewRice";
+import ViewVegi from "./Components/AgricultureProduction/ViewVegi";
+import VegiDetails from "./Components/AgricultureProduction/VegiDetails";
+import AddVegi from "./Components/AgricultureProduction/AddVegi";
+import UpdateVegi from "./Components/AgricultureProduction/UpdateVegi";
+
+
+import UpdateRice from "./Components/AgricultureProduction/UpdateRice";
 import Login from "./Components/Login";
 import Home from "./Components/Home";
 import AboutUs from "./Components/AboutUs";
@@ -315,8 +321,13 @@ export default function App() {
           }
         />
         {/*Edited by kuls */}
-        <Route path="/vvegi" element={<><ViewRice/> <APNavbar /> <Footer /> </> }></Route>
-        <Route path="/upvegi" element={<><UpdateRice/> <APNavbar /> <Footer /> </> }></Route>
+        <Route path="/vvegi" element={<><ViewVegi/> <APNavbar /> <Footer /> </> }></Route>
+        <Route path="/svegi" element={<VegiDetails />} />
+        <Route path="/addvegi" element={<><AddVegi /><APNavbar /><Footer /></>} />
+        <Route path="/upvegi" element={<><UpdateVegi /><APNavbar /><Footer /></>} />
+
+
+        <Route path="/upve" element={<><UpdateRice/> <APNavbar /> <Footer /> </> }></Route>
         <Route path="/agriForm" element={<><AgriBlogForm /><Footer /></>} />
         <Route path="/agriServices" element={<><AgriStaffNavbar /><ImageGridAgri /><SelectionPageStaff /><Footer /></>} />
         <Route path="/agriArticle" element={<><AgriBlog /><Footer /></>} />
