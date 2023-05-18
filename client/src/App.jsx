@@ -53,6 +53,10 @@ import VegiDetails from "./Components/AgricultureProduction/VegiDetails";
 import AddVegi from "./Components/AgricultureProduction/AddVegi";
 import UpdateVegi from "./Components/AgricultureProduction/UpdateVegi";
 import UpdateRice from "./Components/AgricultureProduction/UpdateRice";
+import ClientViewVegi from "./Components/AgricultureProduction/ClientViewVegi";
+import ClientVegiDetails from "./Components/AgricultureProduction/ClientVegiDetails";
+import ClientViewRice from "./Components/AgricultureProduction/ClientViewRice";
+import ClientRiceDetails from "./Components/AgricultureProduction/ClientRiceDetails";
 
 
 import Login from "./Components/Login";
@@ -329,6 +333,10 @@ export default function App() {
         <Route path="/addrice" element={<><AddRice /><APNavbar /><Footer /></>} />
         <Route path="/srice" element={<RiceDetails />} />
         <Route path="/uprice" element={<><UpdateRice/> <APNavbar /> <Footer /> </> }></Route>
+        <Route path="/clientvegi" element={<><ClientViewVegi/> <APNavbar /> <Footer /> </> }></Route>
+        <Route path="/clientsvegi" element={<ClientVegiDetails />} />
+        <Route path="/clientrice" element={<><ClientViewRice/> <APNavbar /> <Footer /> </> }></Route>
+        <Route path="/clientsrice" element={<ClientRiceDetails />} />
 
         
         <Route path="/agriForm" element={<><AgriBlogForm /><Footer /></>} />
