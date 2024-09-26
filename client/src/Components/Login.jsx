@@ -12,7 +12,6 @@ import green from '@mui/material/colors/green';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
-// import axios from 'axios';
 
 function Copyright(props) {
   return (
@@ -36,49 +35,38 @@ const theme = createTheme({
 });
 
 export default function SignIn() {
-//   const handleSubmit = (event) => {
-//     event.preventDefault();
-//     const data = new FormData(event.currentTarget);
-//     console.log({
-//       email: data.get('email'),
-//       password: data.get('password'),
-//     });
-//   };
-
   const navigate = useNavigate();
-  const [username,setUsername]=useState('')
-  const [password,setPassword]=useState('')
- 
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
+    try {
+      const response = await fetch("http://localhost:8070/grass/loginGrass", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, password }),
+      });
 
+      if (response.ok) {
+        navigate("/adminselect");
+        sessionStorage.setItem('hasLoggedIn', 'true');
+      } else {
+        alert("Login failed. Please check your credentials and try again.");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("An error occurred. Please try again later.");
+    }
+  };
 
-      const handleSubmit = async (e) => {
-        e.preventDefault();
-    
-        try {
-          const response = await fetch("http://localhost:8070/grass/loginGrass", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ username, password }),
-
-            
-          });
-    
-          if (response.ok) {
-            navigate("/adminselect");
-           
-            sessionStorage.setItem('hasLoggedIn', 'true');
-          } else {
-            alert("Login failed. Please check your credentials and try again.");
-          }
-        } catch (error) {
-          console.error(error);
-          alert("An error occurred. Please try again later.");
-        }
-      };  
+  // Function to trigger Google OAuth login
+  const googleLogin = () => {
+    window.location.href = "http://localhost:8070/auth/google";
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -108,7 +96,7 @@ export default function SignIn() {
               name="username"
               autoComplete="username"
               autoFocus
-              onChange={(e)=>setUsername(e.target.value)}
+              onChange={(e) => setUsername(e.target.value)}
             />
             <TextField
               margin="normal"
@@ -119,18 +107,40 @@ export default function SignIn() {
               type="password"
               id="password"
               autoComplete="current-password"
-              onChange={(e)=>setPassword(e.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
             />
-           
+
             <Button
               type="submit"
               fullWidth
               variant="contained"
-              color='primary'
+              color="primary"
               sx={{ mt: 3, mb: 2 }}
             >
               Sign In
             </Button>
+
+            {/* Add Google Login Button */}
+<Button
+  fullWidth
+  variant="outlined"
+  startIcon={<img src="client/public/Assets/avesbl6oq.webp" alt="Google logo" width="20px" />}
+  sx={{
+    mt: 1,
+    mb: 2,
+    color: '#4285F4',
+    borderColor: '#4285F4',
+    textTransform: 'none',
+    '&:hover': {
+      backgroundColor: '#f5f5f5',
+      borderColor: '#357ae8',
+    },
+  }}
+  onClick={googleLogin}
+>
+  Sign In with Google
+</Button>
+
           </Box>
         </Box>
         <Copyright sx={{ mt: 5, mb: 4 }} />

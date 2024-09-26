@@ -6,6 +6,8 @@ const dotenv = require("dotenv");
 const app = express();
 require("dotenv").config();
 const PORT = process.env.PORT || 8070;
+const passport = require('passport');
+const session = require('express-session');
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.json());
@@ -13,6 +15,11 @@ app.use(express.json());
 const URL = process.env.MONGODB_URL;
 app.use(express.static("../client/src/Assets/images"));
 app.use(express.static("../client/src/Assets/animalblogs"));
+app.use(session({ secret: 'your-secret-key', resave: false, saveUninitialized: true }));
+app.use(passport.initialize());
+app.use(passport.session());
+
+require('./passport');  // Import the passport setup
 
 
 mongoose.connect(URL, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -65,3 +72,25 @@ app.use("/riceProduction", riceRouter);
 const vegitableRouter = require("./Routes/Agriculture-routes/VegitableProduction-route");
 app.use("/vegitableProduction", vegitableRouter);
 
+app.get('/auth/google',
+  passport.authenticate('google', { scope: ['profile', 'email'] })
+);
+
+app.get('/auth/google/callback', 
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  function(req, res) {
+    // Successful authentication, redirect to the frontend.
+    res.redirect('http://localhost:8070');
+  }
+);
+
+app.get('/logout', (req, res) => {
+  req.logout((err) => {
+    if (err) { return next(err); }
+    res.redirect('/');
+  });
+});
+
+app.get('/current_user', (req, res) => {
+  res.send(req.user);
+});
